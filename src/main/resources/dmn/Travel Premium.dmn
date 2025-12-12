@@ -56,6 +56,48 @@
     <informationRequirement id="_71DFE5E0-D4D3-4B88-A0DD-CB8A2B9395AF">
       <requiredInput href="#_8E5CD861-83D1-48FF-B16A-091B110863C3" />
     </informationRequirement>
+    <decisionTable id="_DF549098-831F-4A0C-96EE-98045B7E35C4" typeRef="number" hitPolicy="UNIQUE" label="Base Premium">
+      <input id="_D84D7E1B-C82C-4F73-BA01-2CE49CFCE186">
+        <inputExpression id="_A6769D8D-E676-44D7-842C-4F25AF6F710A" typeRef="number">
+          <text>Traveler.age</text>
+        </inputExpression>
+      </input>
+      <output id="_069CB210-EEBA-4593-88B1-293A67DD4BC2" />
+      <annotation name="Annotations" />
+      <rule id="_BC0ED52E-186D-4688-A8CD-D065C4CBF58C">
+        <inputEntry id="_337FA49B-1C6C-4210-8FC8-11924D1EB977">
+          <text>&lt;25</text>
+        </inputEntry>
+        <outputEntry id="_2359C28C-757D-4E36-B2AF-87C4D873FEA9">
+          <text>75</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>&quot;Traveller is less than 25&quot;</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_46505E72-FB76-4730-832D-7B3E6C992BAE">
+        <inputEntry id="_5EE8137D-C29A-4C96-AECB-0962FB526F74">
+          <text>[25..65]</text>
+        </inputEntry>
+        <outputEntry id="_5F128F1C-1243-4568-A08C-389D47A9FEE0">
+          <text>50</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+      <rule id="_E4D9D5A0-1D46-4A91-9A11-0CDBCF847C09">
+        <inputEntry id="_9D690AAD-7C59-4AF4-BD1F-F15C35F41908">
+          <text>&gt;65</text>
+        </inputEntry>
+        <outputEntry id="_E2383B30-50A3-4AC6-B5E0-E9DE5EE11122">
+          <text>100</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+    </decisionTable>
   </decision>
   <decision name="Claim Assessment" id="_8240EA1D-601E-45DC-86CD-088F12D3B090">
     <variable name="Claim Assessment" id="_655C9054-6068-487C-9BC6-617DFC6E7213" typeRef="number" />
@@ -85,7 +127,12 @@
     <dmndi:DMNDiagram id="_E65A39BC-F3A3-4DF6-8BCB-3D4E4791F5B7" name="Default DRD" useAlternativeInputDataShape="false">
       <di:extension>
         <kie:ComponentsWidthsExtension>
-          <kie:ComponentWidths />
+          <kie:ComponentWidths dmnElementRef="_DF549098-831F-4A0C-96EE-98045B7E35C4">
+            <kie:width>60</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
       </di:extension>
       <dmndi:DMNShape id="_74A8728D-0F07-49BB-8E32-62F52435C1BD" dmnElementRef="_8E5CD861-83D1-48FF-B16A-091B110863C3" isCollapsed="false" isListedInputData="false">
