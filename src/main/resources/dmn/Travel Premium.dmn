@@ -104,6 +104,26 @@
     <informationRequirement id="_22792DD7-2441-48F0-8407-3AB05ACDD351">
       <requiredInput href="#_8E5CD861-83D1-48FF-B16A-091B110863C3" />
     </informationRequirement>
+    <decisionTable id="_32EA6E7C-3CC2-499A-A846-E8725A36036A" typeRef="number" hitPolicy="UNIQUE" label="Claim Assessment">
+      <input id="_1E7212D7-2D06-484F-BC20-FC43536FF72A">
+        <inputExpression id="_3B685764-C16F-4543-9492-F63F30C21C21" typeRef="claim">
+          <text>Traveler.claim history</text>
+        </inputExpression>
+      </input>
+      <output id="_584F17B3-7A36-4574-BADB-AD4CBBF5FA7D" />
+      <annotation name="Annotations" />
+      <rule id="_4803C80B-C848-41E4-9F53-15294D3F2AAB">
+        <inputEntry id="_4AFEFB46-0F16-42B4-8B91-E65718369658">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="_C9BD3AE4-C329-42D5-BAC3-68926F0AB3C5">
+          <text></text>
+        </outputEntry>
+        <annotationEntry>
+          <text>// Your annotations here</text>
+        </annotationEntry>
+      </rule>
+    </decisionTable>
   </decision>
   <decision name="Medical Assessment" id="_E7092D9E-5458-4D7C-82AA-1F6815D12260">
     <variable name="Medical Assessment" id="_EEFE2F35-8D1D-4A1F-B4D9-D000F5270653" typeRef="number" />
@@ -130,6 +150,12 @@
           <kie:ComponentWidths dmnElementRef="_DF549098-831F-4A0C-96EE-98045B7E35C4">
             <kie:width>60</kie:width>
             <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_32EA6E7C-3CC2-499A-A846-E8725A36036A">
+            <kie:width>60</kie:width>
+            <kie:width>455</kie:width>
             <kie:width>118</kie:width>
             <kie:width>240</kie:width>
           </kie:ComponentWidths>
