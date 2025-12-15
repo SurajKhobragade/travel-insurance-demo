@@ -26,7 +26,7 @@
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="_211F6796-2900-4852-924E-1213D82AE80A" name="Traveler" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
-    <itemComponent id="_3E1517AA-AFC0-4ED6-8BA2-F210FF3EBA8C" name="claim history" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_3E1517AA-AFC0-4ED6-8BA2-F210FF3EBA8C" name="claim history" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <typeRef>claim</typeRef>
     </itemComponent>
     <itemComponent id="_B64C817B-16EF-4ADE-A9DC-C1961E73C7A1" name="age" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -50,6 +50,50 @@
     <informationRequirement id="_B1540915-42D4-47E7-A039-2EC35808B52A">
       <requiredDecision href="#_C1D81EDB-90FA-4156-9ACF-528BD00DC0E4" />
     </informationRequirement>
+    <decisionTable id="_9ABA9D45-C42E-4799-B6EC-0CF3BEEDE84C" typeRef="number" hitPolicy="UNIQUE" label="Final Premium">
+      <input id="_56D1C7C9-A68A-4337-9C8D-E2AC095C1D77">
+        <inputExpression id="_B66433E6-B8C2-4C1C-BC01-EA6A3C4D6D37" typeRef="number">
+          <text>Destination Risk Factor</text>
+        </inputExpression>
+      </input>
+      <input id="_A84141E2-F0C2-41A7-9ED5-6C8141AA9904">
+        <inputExpression id="_1AB19BAD-7EA9-44BA-A4FE-54970114AA26" typeRef="number">
+          <text>Medical Assessment</text>
+        </inputExpression>
+      </input>
+      <input id="_5961EC3C-7F5D-4773-B923-8B766DBA0398">
+        <inputExpression id="_971F6EE5-D2E0-45B3-B335-976B2E93A05A" typeRef="number">
+          <text>Claim Assessment</text>
+        </inputExpression>
+      </input>
+      <input id="_DFBDC0A6-9104-473E-8B3C-CE34496AA3A1">
+        <inputExpression id="_5230F186-0E3F-4AC4-8FC2-A0B528995143" typeRef="number">
+          <text>Base Premium</text>
+        </inputExpression>
+      </input>
+      <output id="_39FD3D65-204C-4267-83AB-1EBD4AA9B8E4" />
+      <annotation name="Annotations" />
+      <rule id="_E6FDE1DC-FD5F-408E-B082-EB72B137ED8F">
+        <inputEntry id="_3DA03A7B-B428-4B6B-A899-84828EC94CDE">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="_018B5AD1-67AC-415B-9006-E0291253BD10">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="_396FA409-9B3B-460D-801C-0ED80D5A8011">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="_59CB2EEA-61A6-43E1-9126-C2C692CD74F2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="_483AA943-F3C3-4285-949B-4D2873D4235B">
+          <text></text>
+        </outputEntry>
+        <annotationEntry>
+          <text>// Your annotations here</text>
+        </annotationEntry>
+      </rule>
+    </decisionTable>
   </decision>
   <decision name="Base Premium" id="_C1D81EDB-90FA-4156-9ACF-528BD00DC0E4">
     <variable name="Base Premium" id="_DE2D0871-ECEC-408E-ACCD-48D0414287DC" typeRef="number" />
@@ -104,23 +148,45 @@
     <informationRequirement id="_22792DD7-2441-48F0-8407-3AB05ACDD351">
       <requiredInput href="#_8E5CD861-83D1-48FF-B16A-091B110863C3" />
     </informationRequirement>
-    <decisionTable id="_32EA6E7C-3CC2-499A-A846-E8725A36036A" typeRef="number" hitPolicy="UNIQUE" label="Claim Assessment">
+    <decisionTable id="_32EA6E7C-3CC2-499A-A846-E8725A36036A" typeRef="number" hitPolicy="COLLECT" label="Claim Assessment" aggregation="MAX">
       <input id="_1E7212D7-2D06-484F-BC20-FC43536FF72A">
         <inputExpression id="_3B685764-C16F-4543-9492-F63F30C21C21" typeRef="claim">
-          <text>Traveler.claim history</text>
+          <text>Traveler.claim history[status=&quot;Approved&quot;]</text>
         </inputExpression>
       </input>
       <output id="_584F17B3-7A36-4574-BADB-AD4CBBF5FA7D" />
       <annotation name="Annotations" />
       <rule id="_4803C80B-C848-41E4-9F53-15294D3F2AAB">
         <inputEntry id="_4AFEFB46-0F16-42B4-8B91-E65718369658">
-          <text>-</text>
+          <text>count(?)=0</text>
         </inputEntry>
         <outputEntry id="_C9BD3AE4-C329-42D5-BAC3-68926F0AB3C5">
-          <text></text>
+          <text>0.9</text>
         </outputEntry>
         <annotationEntry>
           <text>// Your annotations here</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_D196B839-3E5D-4AF2-9A60-70BA1582C728">
+        <inputEntry id="_B986BAA1-7986-4D18-9A4E-F404905779B0">
+          <text>count(?)&lt;=2</text>
+        </inputEntry>
+        <outputEntry id="_AD440E3D-2917-4797-B0A4-57D70FA35B4A">
+          <text>1.1</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+      <rule id="_7490EF4A-6BFA-409A-A2F4-8AF2C4B57612">
+        <inputEntry id="_4D5BBDF7-8000-4D9E-A395-1123F6F93A06">
+          <text>sum(?.total claim ammount)&gt;1000</text>
+        </inputEntry>
+        <outputEntry id="_737CEF24-2A10-4CAB-B464-F4FB65DC2CE6">
+          <text>1.4</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
         </annotationEntry>
       </rule>
     </decisionTable>
@@ -156,6 +222,15 @@
           <kie:ComponentWidths dmnElementRef="_32EA6E7C-3CC2-499A-A846-E8725A36036A">
             <kie:width>60</kie:width>
             <kie:width>455</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_9ABA9D45-C42E-4799-B6EC-0CF3BEEDE84C">
+            <kie:width>60</kie:width>
+            <kie:width>160</kie:width>
+            <kie:width>129</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
             <kie:width>118</kie:width>
             <kie:width>240</kie:width>
           </kie:ComponentWidths>
